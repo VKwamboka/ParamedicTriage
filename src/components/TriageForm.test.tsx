@@ -1,33 +1,38 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import TriageForm from './triageForm';
+import React from "react";
+import { render, fireEvent } from "@testing-library/react-native";
+import TriageForm from "./triageForm";
 
-describe('TriageForm', () => {
-  it('blocks submission when required fields are missing', async () => {
+describe("TriageForm", () => {
+  it("blocks submission when required fields are missing", async () => {
     const onSubmit = jest.fn();
-    const { getByText } = await render(
-        <TriageForm onSubmit={onSubmit} />
-    );
-    fireEvent.press(getByText('Submit Triage'));
+    const { getByText } = await render(<TriageForm onSubmit={onSubmit} />);
+    await fireEvent.press(getByText("Submit Triage"));
 
     expect(onSubmit).not.toHaveBeenCalled();
-    expect(getByText(/all fields are required/i)).toBeTruthy();
+    expect(
+      getByText(/complete patient name and condition to submit/i)
+    ).toBeTruthy();
   });
 
-  it('submits valid data with the selected priority and status', async () => {
+  it("submits valid data with the selected priority and status", async () => {
     const onSubmit = jest.fn();
-    const { getByText, getByPlaceholderText } = await render(<TriageForm onSubmit={onSubmit} />);
+    const { getByText, getByPlaceholderText } = await render(
+      <TriageForm onSubmit={onSubmit} />
+    );
 
-    fireEvent.changeText(getByPlaceholderText('e.g. John Doe'), 'Jane Doe');
-    fireEvent.changeText(getByPlaceholderText('e.g. Chest pain, difficulty breathing'), 'Fracture');
-    fireEvent.press(getByText('1'));
-    fireEvent.press(getByText('Submit Triage'));
+    await fireEvent.changeText(getByPlaceholderText("e.g. John Doe"), "Jane Doe");
+    await fireEvent.changeText(
+      getByPlaceholderText("e.g. Chest pain, difficulty breathing"),
+      "Fracture"
+    );
+    await fireEvent.press(getByText("1"));
+    await fireEvent.press(getByText("Submit Triage"));
 
     expect(onSubmit).toHaveBeenCalledWith({
-      patientName: 'Jane Doe',
-      condition: 'Fracture',
+      patientName: "Jane Doe",
+      condition: "Fracture",
       priority: 1,
-      status: 'Pending',
+      status: "Pending",
     });
   });
 });

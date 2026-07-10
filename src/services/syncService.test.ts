@@ -3,8 +3,17 @@ import * as repo from '../repository/TriageRepository';
 import * as api from './mockupapi';
 import { Triage } from '../models/Triage';
 
-jest.mock('../repository/TriageRepository');
-jest.mock('./mockupapi');
+// jest.mock('../repository/TriageRepository');
+// jest.mock('./mockupapi');
+
+jest.mock("../repository/TriageRepository", () => ({
+  getPendingTriage: jest.fn(),
+  markAsSynced: jest.fn(),
+}));
+
+jest.mock("./mockupapi", () => ({
+  postTriageRecord: jest.fn(),
+}));
 
 const mockedRepo = repo as jest.Mocked<typeof repo>;
 const mockedApi = api as jest.Mocked<typeof api>;
