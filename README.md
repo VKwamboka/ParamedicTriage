@@ -1,6 +1,6 @@
 # Paramedic Triage Intake Application
 
-A React Native offline-first mobile application designed for emergency medical services where paramedics need to capture patient information in environments with unreliable or unavailable network connectivity.
+A React Native offline mobile application designed for emergency medical services where paramedics need to capture patient information in environments with unreliable or unavailable network connectivity.
 
 The application allows paramedics to create triage records instantly, store them securely on the device, and automatically synchronize pending records when connectivity is restored.
 
