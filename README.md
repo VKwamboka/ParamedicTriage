@@ -56,8 +56,10 @@ Recommended:
 
 Clone the repository:
 
+
+
 ```bash
-git clone <repository-url>
+git clone https://github.com/VKwamboka/ParamedicTriage.git
 ```
 
 Navigate into the project:
@@ -79,7 +81,7 @@ npm install
 Start the Expo development server:
 
 ```bash
-npm start
+npm expo start
 ```
 
 Run on Android:
