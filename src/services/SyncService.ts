@@ -1,93 +1,37 @@
-// import { getPendingTriage, markAsSynced } from "../repository/TriageRepository";
-// import { postTriageRecord } from "./mockupapi";
+import { getPendingTriage, markAsSynced } from '../repository/TriageRepository';
+import { postTriageRecord } from './mockupapi';
 
+export async function syncPendingRecords(): Promise<void> {
+  console.log("Starting sync...");
 
-// export async function syncPendingRecords() {
+  try {
+    const pending = await getPendingTriage();
 
-//     const pendingRecords = await getPendingTriage();
+    console.log(`Found ${pending.length} pending record(s)`);
 
-//     for (const record of pendingRecords) {
-
-//         try {
-
-//             await postTriageRecord(record);
-
-//             await markAsSynced(record.id);
-
-//             console.log(
-//                 `Synced ${record.id}`
-//             );
-
-//         } catch(error) {
-
-//             console.log(
-//                 `Failed syncing ${record.id}`
-//             );
-
-//         }
-
-//     }
-// }
-
-
-
-import { getPendingTriage, markAsSynced } from "../repository/TriageRepository";
-import { postTriageRecord } from "./mockupapi";
-
-// to prevent multiple syncs running at the same time
-let isSyncing = false;
-
-
-export async function syncPendingRecords() {
-
-    if (isSyncing) {
-        console.log("Sync already running");
-        return;
+    if (pending.length === 0) {
+      console.log("No records to sync");
+      return;
     }
 
+    for (const record of pending) {
+      try {
+        console.log(`Syncing ${record.id}`);
 
-    isSyncing = true;
+        await postTriageRecord(record);
 
+        await markAsSynced(record.id);
 
-    try {
+        console.log(`Synced ${record.id}`);
 
-        const pendingRecords = await getPendingTriage();
-
-
-        console.log(
-            `Found ${pendingRecords.length} pending records`
-        );
-
-
-        for (const record of pendingRecords) {
-
-            try {
-
-                await postTriageRecord(record);
-
-                await markAsSynced(record.id);
-
-
-                console.log(
-                    `Synced ${record.id}`
-                );
-
-
-            } catch(error) {
-
-                console.log(
-                    `Failed syncing ${record.id}`
-                );
-
-            }
-
-        }
-
-
-    } finally {
-
-        isSyncing = false;
-
+      } catch (error) {
+        console.log(`Failed syncing ${record.id}. Will retry later.`);
+      }
     }
 
+    console.log("Sync completed");
+
+  } catch (error) {
+    console.log("Sync error:", error);
+  }
 }

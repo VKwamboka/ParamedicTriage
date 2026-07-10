@@ -6,6 +6,7 @@ export const colors = {
   muted: '#6B7280',
   primary: '#4C4DDC',
   white: '#FFFFFF',
+  warning: '#EA580C',
 };
 
 export const priorityColors: Record<number, string> = {

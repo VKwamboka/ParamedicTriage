@@ -1,29 +1,3 @@
-// import NetInfo from "@react-native-community/netinfo";
-// import { syncPendingRecords } from "./SyncService";
-
-// export function startConnectivityListener(
-//   onSyncComplete?: () => void
-// ) {
-
-//   return NetInfo.addEventListener(state => {
-
-//     if(state.isConnected){
-
-//       syncPendingRecords()
-//         .then(() => {
-
-//           if(onSyncComplete){
-//             onSyncComplete();
-//           }
-
-//         });
-
-//     }
-
-//   });
-
-// }
-
 import NetInfo from "@react-native-community/netinfo";
 import { AppState, AppStateStatus } from "react-native";
 import { syncPendingRecords } from "./SyncService";

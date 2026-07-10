@@ -124,6 +124,12 @@ export default function TriageForm({ onSubmit }: Props) {
 
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
+      {!isValid && (
+        <Text style={styles.helperText}>
+            Complete patient name and condition to submit
+        </Text>
+        )}
+
       <Pressable disabled={!isValid} style={styles.submitBtn} onPress={handleSubmit}>
         <Text style={styles.submitText}>Submit Triage</Text>
       </Pressable>

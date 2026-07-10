@@ -78,4 +78,17 @@ export default StyleSheet.create({
   },
   
   submitText: { color: colors.white, fontWeight: "700", fontSize: 16 },
+
+  helperText: {
+  fontSize: 12,
+  color: colors.warning,
+  marginBottom: 8,
+  marginTop: 12,
+},
+
+submitBtnDisabled: {
+  opacity: 0.5,
+},
 });
+
+

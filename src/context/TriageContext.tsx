@@ -64,10 +64,11 @@ export function TriageProvider({ children }: { children: React.ReactNode }) {
 
     const netSub = startConnectivityListener(refresh);
     const appStateSub = startAppStateListener(refresh);
+    
 
     return () => {
-      netSub.remove();
-      appStateSub.remove();
+     netSub();
+     appStateSub.remove();
     };
   }, [refresh]);
 
